@@ -1,13 +1,11 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql')
-const chalk = require('chalk');
-const { allowedNodeEnvironmentFlags } = require('process');
 
 
 function mainFunction(){
     inquirer
         .prompt({
-            name: 'track',
+            name: 'action',
             type: 'list',
             message: 'What would you like to do?',
             choices: [
@@ -26,13 +24,13 @@ function mainFunction(){
         .then(function(answer){
             switch(userAnswer){
                 case 'Add departments':
-                    addDepartments();
+                    addDep();
                     break;
                 case 'View departments':
-                    viewDepartments();
+                    viewDep();
                     break;
                 case 'Delete departments':
-                    delDepartments();
+                    delDep();
                     break;
                 case 'Add roles':
                     addRoles();
@@ -58,3 +56,51 @@ function mainFunction(){
             }
         })
 }
+
+//functions
+
+//Add Departmnet
+function addDep(input){
+    inquirer    
+        .prompt({
+            name: 'department',
+            type: 'input',
+            message: 'What department would you like to add?'
+        })
+        .then(function(){
+            console.log('You`ve added a new departmnet!')
+        })
+}
+
+//View Department 
+
+
+//Delete Department 
+
+
+
+//Add Roles 
+
+
+
+//View Roles
+
+
+
+//Update Roles 
+
+
+
+//Delete Roles
+
+
+
+//Add Employees
+
+
+
+//View Employees
+
+
+
+//Delete Employees
