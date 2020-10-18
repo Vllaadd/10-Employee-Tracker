@@ -11,14 +11,14 @@ function mainFunction(){
             choices: [
                 'Add departmnets',
                 'View departments',
-                'Delete departments',
-                'Add roles',
-                'View roles',
-                'Update roles',
-                'Delete roles',
-                'Add employees',
-                'View employees',
-                'Delete employees'
+                // 'Delete departments',
+                // 'Add roles',
+                // 'View roles',
+                // 'Update roles',
+                // 'Delete roles',
+                // 'Add employees',
+                // 'View employees',
+                // 'Delete employees'
             ]
         })
         .then(function(answer){
@@ -29,30 +29,30 @@ function mainFunction(){
                 case 'View departments':
                     viewDep();
                     break;
-                case 'Delete departments':
-                    delDep();
-                    break;
-                case 'Add roles':
-                    addRoles();
-                    break;
-                case 'View roles':
-                    viewRoles();
-                    break;
-                case 'Update roles':
-                    updateRoles();
-                    break;
-                case 'Delete roles':
-                    delRoles();
-                    break;
-                case 'Add employees':
-                    addEmpl();
-                    break;
-                case 'View employees':
-                    viewEmpl();
-                    break;
-                case 'Delete employees':
-                    delEmpl();
-                    break;
+                // case 'Delete departments':
+                //     delDep();
+                //     break;
+                // case 'Add roles':
+                //     addRoles();
+                //     break;
+                // case 'View roles':
+                //     viewRoles();
+                //     break;
+                // case 'Update roles':
+                //     updateRoles();
+                //     break;
+                // case 'Delete roles':
+                //     delRoles();
+                //     break;
+                // case 'Add employees':
+                //     addEmpl();
+                //     break;
+                // case 'View employees':
+                //     viewEmpl();
+                //     break;
+                // case 'Delete employees':
+                //     delEmpl();
+                //     break;
             }
         })
 }
@@ -72,9 +72,9 @@ function addDep(input){
                 'INSERT INTO departments SET ?',
                 { name: res.name}
             )
-        });
+        })
         .then(function(){
-            start()
+            mainFunction();
         });    
 };
 
@@ -91,6 +91,9 @@ function addDep(input){
                 'INSERT INTO departments set ?',
                 { name: res.name}
             )
+        })
+        .then(function(){
+            mainFunction();
         })
     }
 
