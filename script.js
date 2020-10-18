@@ -65,15 +65,34 @@ function addDep(input){
         .prompt({
             name: 'department',
             type: 'input',
-            message: 'What department would you like to add?'
+            message: 'Which department would you like to add?'
         })
+        .then(function(res){
+            connection.query(
+                'INSERT INTO departments SET ?',
+                { name: res.name}
+            )
+        });
         .then(function(){
-            console.log('You`ve added a new departmnet!')
-        })
-}
+            start()
+        });    
+};
 
 //View Department 
-
+    function viewDep(){
+        inquirer
+        .prompt({
+            name: 'department',
+            type: 'input',
+            message: 'Which department would you like to see?'
+        })
+        .then(function(res){
+            connection.query(
+                'INSERT INTO departments set ?',
+                { name: res.name}
+            )
+        })
+    }
 
 //Delete Department 
 
