@@ -2,7 +2,7 @@ const inquirer = require('inquirer')
 const mysql = require('mysql')
 
 
-function mainFunction(){
+// function mainFunction(){
     inquirer
         .prompt({
             name: 'action',
@@ -55,7 +55,7 @@ function mainFunction(){
                 //     break;
             }
         })
-}
+// }
 
 //functions
 
