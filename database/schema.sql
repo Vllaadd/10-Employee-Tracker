@@ -1,13 +1,13 @@
 CREATE DATABASE employeesDB
 USE employeesDB;
 
-CREATE TABLE department (
+CREATE TABLE departments (
     id INT AUTO_INCREMENT,
-    name VARCHAR(30),
+    department_name VARCHAR(30),
     PRIMARY KEY(id)
 );
 
-CREATE TABLE role (
+CREATE TABLE roles (
     id INT AUTO_INCREMENT,
     title VARCHAR(30),
     salary DECIMAL(8, 2),
@@ -15,7 +15,7 @@ CREATE TABLE role (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE employee (
+CREATE TABLE employees (
     id INT AUTO_INCREMENT,
     firstName VARCHAR(30),
     lastName VARCHAR(30),

@@ -1,8 +1,10 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql')
+const connection = require('./config/connection')
 
+mainFunction();
 
-// function mainFunction(){
+function mainFunction(){
     inquirer
         .prompt({
             name: 'action',
@@ -21,8 +23,8 @@ const mysql = require('mysql')
                 // 'Delete employees'
             ]
         })
-        .then(function(answer){
-            switch(userAnswer){
+        .then(function(res){
+            switch(res.action){
                 case 'Add departments':
                     addDep();
                     break;
@@ -55,22 +57,27 @@ const mysql = require('mysql')
                 //     break;
             }
         })
-// }
+}
 
 //functions
 
 //Add Departmnet
-function addDep(input){
+function addDep(data){
     inquirer    
-        .prompt({
-            name: 'department',
+        .prompt([
+            {
+            name: 'name',
             type: 'input',
             message: 'Which department would you like to add?'
-        })
+        }
+    ])
         .then(function(res){
             connection.query(
-                'INSERT INTO departments SET ?',
-                { name: res.name}
+                'INSERT INTO departments SET ?', 
+                { name: res.name },
+                function(err, res){
+                    if(err) throw err;
+                }
             )
         })
         .then(function(){
@@ -80,24 +87,15 @@ function addDep(input){
 
 //View Department 
     function viewDep(){
-        inquirer
-        .prompt({
-            name: 'department',
-            type: 'input',
-            message: 'Which department would you like to see?'
-        })
-        .then(function(res){
+      console.log('Department: \n');
             connection.query(
-                'INSERT INTO departments set ?',
-                { name: res.name}
-            )
-        })
-        .then(function(){
-            mainFunction();
-        })
-    }
-
-//Delete Department 
+                'SELECT * FROM department', function(err, res){
+                    if(err) throw err;
+                    console.log(res);
+                    mainFunction();
+                });
+        }
+  
 
 
 
