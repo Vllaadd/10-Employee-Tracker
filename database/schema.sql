@@ -1,4 +1,4 @@
-CREATE DATABASE employeesDB
+CREATE DATABASE employeesDB;
 USE employeesDB;
 
 CREATE TABLE departments (
