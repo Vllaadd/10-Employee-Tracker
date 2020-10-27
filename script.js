@@ -35,7 +35,7 @@ function mainFunction(){
             message: 'What would you like to do?',
             choices: [
                 'Add departmnets',
-                'View departments',
+                'View departments'
                 // 'Delete departments',
                 // 'Add roles',
                 // 'View roles',
@@ -112,7 +112,7 @@ function addDep(){
     function viewDep(){
       console.log('Department: \n');
             connection.query(
-                'SELECT * FROM department', function(err, res){
+                'SELECT * FROM departments', function(err, res){
                     if(err) throw err;
                     console.log(res);
                     mainFunction();
