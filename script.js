@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
-const mysql = require('mysql')
+const mysql = require('mysql');
+const { connect } = require('./config/connection');
 const connection = require('./config/connection')
 
 let listDep;
@@ -37,7 +38,7 @@ function mainFunction() {
                 'Add departmnets',
                 'View departments',
                 // 'Delete departments',
-                // 'Add roles',
+                'Add roles',
                 'View roles',
                 // 'Update roles',
                 // 'Delete roles',
@@ -87,11 +88,11 @@ function mainFunction() {
 //Add Departmnet
 function addDep() {
     inquirer
-        .prompt([{
-            name: 'name',
+        .prompt({
+            name: 'new_dep',
             type: 'input',
             message: 'Which department would you like to add?'
-        }])
+        })
         .then(function (res) {
             connection.query(
                 'INSERT INTO departments SET ?',
@@ -120,12 +121,36 @@ function viewDep() {
 
 
 
-//Add Roles 
-// alter table [table name] add column [new column name] varchar (20)
+//ADD ROLES 
     function addRoles(){
-
+        inquirer
+            .prompt({
+                    name: 'new_role',
+                    type: 'input',
+                    message: 'Which role would you like to add?'
+            })
+            .then(function(answer){
+                connection.query(
+                    'INSERT INTO roles SET ?',
+                    {
+                        title: answer.title,
+                        salary: answer.salary,
+                        departmentsID: answer.departmentsID
+                    },
+                    function(err){
+                        if(err) throw err;
+                        console.log('Your role was created successfully!');
+                    }
+                )
+            })
+       
     }
 
+    // id INT AUTO_INCREMENT,
+    // title VARCHAR(30),
+    // salary DECIMAL(8, 2),
+    // departmentsID INT,
+    // PRIMARY KEY(id)
 //View Roles
     function viewRoles(){
         console.log('Roles: \n');
