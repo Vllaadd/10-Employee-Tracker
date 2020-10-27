@@ -35,7 +35,7 @@ function mainFunction() {
             type: 'list',
             message: 'What would you like to do?',
             choices: [
-                'Add departmnets',
+                'Add departments',
                 'View departments',
                 // 'Delete departments',
                 'Add roles',
@@ -85,7 +85,7 @@ function mainFunction() {
 
 //FUNCTIONS
 
-//Add Departmnet
+//ADD DEPARTMENT
 function addDep() {
     inquirer
         .prompt({
@@ -93,21 +93,20 @@ function addDep() {
             type: 'input',
             message: 'Which department would you like to add?'
         })
-        .then(function (res) {
+        .then(function (answer) {
             connection.query(
                 'INSERT INTO departments SET ?',
-                { name: res.name },
+                { department_name: answer.department_name },
                 function (err, res) {
                     if (err) throw err;
+                    console.log('-----Department added!------');
+                    mainFunction();
                 }
             )
-        })
-        .then(function(){
-            console.log('-----Department added!------');
-        })
+        })   
 };
 
-//View Department 
+//VIEW DEPARTMENT 
 function viewDep() {
     console.log('Department: \n');
     connection.query(
@@ -117,9 +116,6 @@ function viewDep() {
             mainFunction();
         });
 }
-
-
-
 
 //ADD ROLES 
     function addRoles(){
@@ -140,18 +136,14 @@ function viewDep() {
                     function(err){
                         if(err) throw err;
                         console.log('Your role was created successfully!');
+                        mainFunction()
                     }
                 )
             })
        
     }
 
-    // id INT AUTO_INCREMENT,
-    // title VARCHAR(30),
-    // salary DECIMAL(8, 2),
-    // departmentsID INT,
-    // PRIMARY KEY(id)
-//View Roles
+//VIEW ROLES
     function viewRoles(){
         console.log('Roles: \n');
         connection.query(
@@ -165,20 +157,20 @@ function viewDep() {
 
 
 
-//Update Roles 
+//UPDATE ROLES 
 
 
 
 
-//Delete Roles
+//DELETE ROLES
 
 
 
-//Add Employees
+//ADD EMPLOYEES
 
 
 
-//View Employees
+//VIEW EMPLOYEES
  function viewEmpl(){
      connection.query(
          'SELECT DISTINCT firstName, lastName FROM employees', function(err, res){
@@ -189,4 +181,4 @@ function viewDep() {
  }
 
 
-//Delete Employees
+//DELETE EMPLOYEES
