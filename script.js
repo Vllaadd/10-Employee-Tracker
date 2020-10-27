@@ -6,28 +6,28 @@ let listDep;
 let listRoles;
 let listEmp;
 
-connection.query("SELECT * FROM roles", function(err, res) {
-  if (err) throw err;
-  listRoles = res.map(role => ({ name: role.title, value: role.id }));
+connection.query("SELECT * FROM roles", function (err, res) { // choose the data from the table.
+    if (err) throw err;
+    listRoles = res.map(role => ({ name: role.title, value: role.id })); // we choose what the callback function to do with the data. 
 });
-connection.query("SELECT * FROM departments", function(err, res) {
-  if (err) throw err;
-  listDep = res.map(dep => ({ name: dep.name, value: dep.id }));
-});
-
-connection.query("SELECT * FROM employees", function(err, res) {
-  if (err) throw err;
-  listEmp = res.map(emp => ({
-    name: `${emp.first_name}${emp.last_name}`,
-    value: emp.id
-  }));
+connection.query("SELECT * FROM departments", function (err, res) {
+    if (err) throw err;
+    listDep = res.map(dep => ({ name: dep.name, value: dep.id })); //we use map method to add id to each department, role and employee.
 });
 
+connection.query("SELECT * FROM employees", function (err, res) {
+    if (err) throw err;
+    listEmp = res.map(emp => ({
+        name: `${emp.first_name}${emp.last_name}`,
+        value: emp.id
+    }));
+});
 
 
-mainFunction();
 
-function mainFunction(){
+    mainFunction(); // without calling the function we get connected but the function is not called so nothing happens. 
+
+function mainFunction() {
     inquirer
         .prompt({
             name: 'action',
@@ -35,19 +35,19 @@ function mainFunction(){
             message: 'What would you like to do?',
             choices: [
                 'Add departmnets',
-                'View departments'
+                'View departments',
                 // 'Delete departments',
                 // 'Add roles',
-                // 'View roles',
+                'View roles',
                 // 'Update roles',
                 // 'Delete roles',
                 // 'Add employees',
-                // 'View employees',
+                'View employees'
                 // 'Delete employees'
             ]
         })
-        .then(function(res){
-            switch(res.action){
+        .then(function (res) {
+            switch (res.action) {
                 case 'Add departments':
                     addDep();
                     break;
@@ -57,12 +57,12 @@ function mainFunction(){
                 // case 'Delete departments':
                 //     delDep();
                 //     break;
-                // case 'Add roles':
-                //     addRoles();
-                //     break;
-                // case 'View roles':
-                //     viewRoles();
-                //     break;
+                case 'Add roles':
+                    addRoles();
+                    break;
+                case 'View roles':
+                    viewRoles();
+                    break;
                 // case 'Update roles':
                 //     updateRoles();
                 //     break;
@@ -72,9 +72,9 @@ function mainFunction(){
                 // case 'Add employees':
                 //     addEmpl();
                 //     break;
-                // case 'View employees':
-                //     viewEmpl();
-                //     break;
+                case 'View employees':
+                    viewEmpl();
+                    break;
                 // case 'Delete employees':
                 //     delEmpl();
                 //     break;
@@ -82,55 +82,66 @@ function mainFunction(){
         })
 }
 
-//functions
+//FUNCTIONS
 
 //Add Departmnet
-function addDep(){
-    inquirer    
-        .prompt([
-            {
+function addDep() {
+    inquirer
+        .prompt([{
             name: 'name',
             type: 'input',
             message: 'Which department would you like to add?'
-        }
-    ])
-        .then(function(res){
+        }])
+        .then(function (res) {
             connection.query(
-                'INSERT INTO departments SET ?', 
+                'INSERT INTO departments SET ?',
                 { name: res.name },
-                function(err, res){
-                    if(err) throw err;
+                function (err, res) {
+                    if (err) throw err;
                 }
             )
         })
         .then(function(){
-            mainFunction();
-        });    
+            console.log('-----Department added!------');
+        })
 };
 
 //View Department 
-    function viewDep(){
-      console.log('Department: \n');
-            connection.query(
-                'SELECT * FROM departments', function(err, res){
-                    if(err) throw err;
-                    console.log(res);
-                    mainFunction();
-                });
-        }
-  
+function viewDep() {
+    console.log('Department: \n');
+    connection.query(
+        'SELECT DISTINCT department_name FROM departments', function(err, res){
+            if (err) throw err;
+            console.log(res);
+            mainFunction();
+        });
+}
+
 
 
 
 //Add Roles 
+// alter table [table name] add column [new column name] varchar (20)
+    function addRoles(){
 
-
+    }
 
 //View Roles
+    function viewRoles(){
+        console.log('Roles: \n');
+        connection.query(
+            'SELECT DISTINCT title FROM roles', function(err, res){
+                if(err) throw err;
+                console.log(res);
+                mainFunction();
+            }
+        )
+    }
 
 
 
 //Update Roles 
+
 
 
 
@@ -143,7 +154,14 @@ function addDep(){
 
 
 //View Employees
-
+ function viewEmpl(){
+     connection.query(
+         'SELECT DISTINCT firstName, lastName FROM employees', function(err, res){
+         if(err) throw err;
+         console.log(res);
+         mainFunction();
+     })
+ }
 
 
 //Delete Employees
