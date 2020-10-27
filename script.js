@@ -1,6 +1,5 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql');
-const { connect } = require('./config/connection');
 const connection = require('./config/connection')
 
 let listDep;
@@ -41,7 +40,7 @@ function mainFunction() {
                 'Add roles',
                 'View roles',
                 // 'Update roles',
-                // 'Delete roles',
+                'Delete roles',
                 // 'Add employees',
                 'View employees'
                 // 'Delete employees'
@@ -67,9 +66,9 @@ function mainFunction() {
                 // case 'Update roles':
                 //     updateRoles();
                 //     break;
-                // case 'Delete roles':
-                //     delRoles();
-                //     break;
+                case 'Delete roles':
+                    delRoles();
+                    break;
                 // case 'Add employees':
                 //     addEmpl();
                 //     break;
@@ -185,6 +184,27 @@ function viewDep() {
 
 
 //DELETE ROLES
+function delRoles(){
+    inquirer
+    .prompt(
+        {
+            name: 'del_roles',
+            type: 'input',
+            message: 'Which role would you like to delete?'
+        }
+    )
+    .then(function(answer){
+        connection.query(
+            'DELETE FROM roles WHERE ?',
+            {title: answer.title},
+            function(err, res){
+                if(err) throw err;
+                console.log(answer.title + 'department successfully deleted');
+                mainFunction();
+            }
+        )
+    })
+}
 
 
 
