@@ -42,8 +42,8 @@ function mainFunction() {
                 // 'Update roles',
                 'Delete roles',
                 // 'Add employees',
-                'View employees'
-                // 'Delete employees'
+                'View employees',
+                'Delete employees'
             ]
         })
         .then(function (res) {
@@ -75,9 +75,9 @@ function mainFunction() {
                 case 'View employees':
                     viewEmpl();
                     break;
-                // case 'Delete employees':
-                //     delEmpl();
-                //     break;
+                case 'Delete employees':
+                    delEmpl();
+                    break;
             }
         })
 }
@@ -223,4 +223,24 @@ function delRoles(){
  }
 
 
-//DELETE EMPLOYEES
+//DELETE EMPLOYEES 
+function delEmpl(){
+    inquirer
+    .prompt(
+        {
+            name: 'delete_dep',
+            type: 'input',
+            message: 'Which department would you like to delete?'
+        }
+    )
+    .then(function(answer){
+        connection.query(
+            'DELETE FROM departments WHERE ?',
+            {department_name: answer.department_name},
+            function(err, res){
+                if(err) throw err;
+                console.log(answer.department_name + 'department successfully deleted')
+            }
+        )
+    })
+}
