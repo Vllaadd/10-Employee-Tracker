@@ -1,3 +1,4 @@
+//=========== DENEPNDECIES =====================
 const inquirer = require('inquirer')
 const mysql = require('mysql');
 const connection = require('./config/connection')
@@ -24,9 +25,10 @@ connection.query("SELECT * FROM employees", function (err, res) {
 });
 
 
+//========= CALLING THE MAIN FUNCTION ====================
+    mainFunction(); 
 
-    mainFunction(); // without calling the function we get connected but the function is not called so nothing happens. 
-
+// =========== MAIN FUNCTION WITH QUESTIONS AND CHOICES ==============
 function mainFunction() {
     inquirer
         .prompt({
@@ -39,7 +41,7 @@ function mainFunction() {
                 'Delete departments',
                 'Add roles',
                 'View roles',
-                // 'Update roles',
+                'Update roles',
                 'Delete roles',
                 // 'Add employees',
                 'View employees',
@@ -63,9 +65,9 @@ function mainFunction() {
                 case 'View roles':
                     viewRoles();
                     break;
-                // case 'Update roles':
-                //     updateRoles();
-                //     break;
+                case 'Update roles':
+                    updateRoles();
+                    break;
                 case 'Delete roles':
                     delRoles();
                     break;
@@ -82,9 +84,7 @@ function mainFunction() {
         })
 }
 
-//FUNCTIONS
-
-//ADD DEPARTMENT
+//========= ADD DEPARTMENT =====================
 function addDep() {
     inquirer
         .prompt({
@@ -105,7 +105,7 @@ function addDep() {
         })   
 };
 
-//VIEW DEPARTMENT 
+//=========== VIEW DEPARTMENT =====================
 function viewDep() {
     console.log('Department: \n');
     connection.query(
@@ -116,7 +116,7 @@ function viewDep() {
         });
 }
 
-//DELETE DEPARTMENTS
+//=========== DELETE DEPARTMENTS =================
     function delDep(){
         inquirer
         .prompt(
@@ -138,7 +138,7 @@ function viewDep() {
         })
     }
 
-//ADD ROLES 
+//============ ADD ROLES ======================
     function addRoles(){
         inquirer
             .prompt({
@@ -164,7 +164,7 @@ function viewDep() {
        
     }
 
-//VIEW ROLES
+//============= VIEW ROLES ====================
     function viewRoles(){
         console.log('Roles: \n');
         connection.query(
@@ -178,12 +178,28 @@ function viewDep() {
 
 
 
-//UPDATE ROLES 
+//===========UPDATE ROLES =====================
+function updateRoles(){
+    inquirer 
+        .prompt(
+            name = 'update_role',
+            type = 'input',
+            message = 'Which role would you like to update?'
+        ).then(function(answer){
+            connection.query(
+                'UPDATE roles SET email: ggg@ggf.com',
+                {title: answer.title},
+                function(err, res){
+                    if(err) throw err;
+                    console.log(answer.title + 'has been successfully update!');
+                    mainFunction();
+                }
+               
+            )
+        })
+}
 
-
-
-
-//DELETE ROLES
+//========== DELETE ROLES =======================
 function delRoles(){
     inquirer
     .prompt(
@@ -208,11 +224,11 @@ function delRoles(){
 
 
 
-//ADD EMPLOYEES
+//============= ADD EMPLOYEES =====================
 
 
 
-//VIEW EMPLOYEES
+// ============ VIEW EMPLOYEES ===================
  function viewEmpl(){
      connection.query(
          'SELECT DISTINCT firstName, lastName FROM employees', function(err, res){
@@ -223,7 +239,7 @@ function delRoles(){
  }
 
 
-//DELETE EMPLOYEES 
+//============== DELETE EMPLOYEES =================
 function delEmpl(){
     inquirer
     .prompt(
