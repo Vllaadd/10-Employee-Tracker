@@ -1,6 +1,7 @@
 //=========== DENEPNDECIES =====================
 const inquirer = require('inquirer')
 const mysql = require('mysql');
+const { title } = require('process');
 const connection = require('./config/connection')
 
 let listDep;
@@ -190,17 +191,26 @@ function updateRoles(){
             }
             ).then(function(answer){
             connection.query(
-                'UPDATE roles SET email: ggg@ggf.com',
-                {title: answer.title},
+                `SELECT title FROM roles WHERE salary = ${roles.salary}`,
+                 `UPDATE roles SET salary = ${answer.salary}  WHERE salary = ${roles.salary}`,
                 function(err, res){
                     if(err) throw err;
-                    console.log(answer.title + 'has been successfully update!');
+                    console.log(`${answer.role} has been successfully update!`);
                     mainFunction();
                 }
                
             )
         })
 }
+
+SELECT 
+    firstname, 
+    lastname, 
+    email
+FROM
+    employees
+WHERE
+    employeeNumber = 1056;
 
 //========== DELETE ROLES =======================
 function delRoles(){
@@ -234,7 +244,7 @@ function addEmpl(){
             {
                 name: 'firstName',
                 type: 'input',
-                message = 'What is the employee`s first name?'
+                message: 'What is the employee`s first name?'
             },
             {
                 name: 'lastName',
