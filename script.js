@@ -195,7 +195,7 @@ function updateRoles(){
             })
             .then(function(answer){
             connection.query(
-                `SELECT salary FROM ${answer.title} WHERE salary = ${answer.salary}`,
+                // `SELECT salary FROM ${answer.title} WHERE salary = ${answer.salary}`,
                  `UPDATE ${answer.title} SET salary = ${answer.salary}  WHERE salary = ${roles.salary}`,
                 function(err, res){
                     if(err) throw err;
