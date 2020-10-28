@@ -182,10 +182,12 @@ function viewDep() {
 function updateRoles(){
     inquirer 
         .prompt(
-            name = 'update_role',
-            type = 'input',
-            message = 'Which role would you like to update?'
-        ).then(function(answer){
+            {
+                name: 'update_role',
+                type:'input',
+                message: 'Which role would you like to update?'
+            }
+            ).then(function(answer){
             connection.query(
                 'UPDATE roles SET email: ggg@ggf.com',
                 {title: answer.title},
@@ -229,19 +231,19 @@ function addEmpl(){
     inquirer
         .prompt([
             {
-                name = 'firstName',
-                type = 'input',
+                name: 'firstName',
+                type: 'input',
                 message = 'What is the employee`s first name?'
             },
             {
-                name = 'lastName',
-                type = 'input',
-                message = 'What is the employee`s last name?'
+                name: 'lastName',
+                type: 'input',
+                message: 'What is the employee`s last name?'
             }, 
             {
-                name = 'rolesID',
-                type = 'input',
-                message = 'What is the employee`s role?'
+                name: 'rolesID',
+                type: 'input',
+                message: 'What is the employee`s role?'
             }
         ]).then(function(answer){
             connection.query(
