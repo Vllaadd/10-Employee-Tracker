@@ -43,7 +43,7 @@ function mainFunction() {
                 'View roles',
                 'Update roles',
                 'Delete roles',
-                // 'Add employees',
+                'Add employees',
                 'View employees',
                 'Delete employees'
             ]
@@ -71,9 +71,9 @@ function mainFunction() {
                 case 'Delete roles':
                     delRoles();
                     break;
-                // case 'Add employees':
-                //     addEmpl();
-                //     break;
+                case 'Add employees':
+                    addEmpl();
+                    break;
                 case 'View employees':
                     viewEmpl();
                     break;
@@ -225,7 +225,39 @@ function delRoles(){
 
 
 //============= ADD EMPLOYEES =====================
-
+function addEmpl(){
+    inquirer
+        .prompt([
+            {
+                name = 'firstName',
+                type = 'input',
+                message = 'What is the employee`s first name?'
+            },
+            {
+                name = 'lastName',
+                type = 'input',
+                message = 'What is the employee`s last name?'
+            }, 
+            {
+                name = 'rolesID',
+                type = 'input',
+                message = 'What is the employee`s role?'
+            }
+        ]).then(function(answer){
+            connection.query(
+                'INSERT INTO  employees SET ?',
+                {
+                    firstName: answer.firstName,
+                    lastName: answer.lastName,
+                    rolesID : answer.rolesID
+                },
+                function(err, res){
+                    if(err) throw err;
+                    mainFunction()
+                }
+            )
+        })
+}
 
 
 // ============ VIEW EMPLOYEES ===================
