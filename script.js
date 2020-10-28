@@ -7,13 +7,14 @@ let listDep;
 let listRoles;
 let listEmp;
 
-connection.query("SELECT * FROM roles", function (err, res) { // choose the data from the table.
-    if (err) throw err;
-    listRoles = res.map(role => ({ name: role.title, value: role.id })); // we choose what the callback function to do with the data. 
-});
 connection.query("SELECT * FROM departments", function (err, res) {
     if (err) throw err;
     listDep = res.map(dep => ({ name: dep.name, value: dep.id })); //we use map method to add id to each department, role and employee.
+});
+
+connection.query("SELECT * FROM roles", function (err, res) { // choose the data from the table.
+    if (err) throw err;
+    listRoles = res.map(role => ({ name: role.title, value: role.id })); // we choose what the callback function to do with the data. 
 });
 
 connection.query("SELECT * FROM employees", function (err, res) {
