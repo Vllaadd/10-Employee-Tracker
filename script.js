@@ -188,29 +188,24 @@ function updateRoles(){
                 name: 'update_role',
                 type:'input',
                 message: 'Which role would you like to update?'
-            }
-            ).then(function(answer){
+            },{
+                name: 'salary_update',
+                type: 'input',
+                message: 'What is the new amount?'
+            })
+            .then(function(answer){
             connection.query(
-                `SELECT title FROM roles WHERE salary = ${roles.salary}`,
-                 `UPDATE roles SET salary = ${answer.salary}  WHERE salary = ${roles.salary}`,
+                `SELECT salary FROM ${answer.title} WHERE salary = ${answer.salary}`,
+                 `UPDATE ${answer.title} SET salary = ${answer.salary}  WHERE salary = ${roles.salary}`,
                 function(err, res){
                     if(err) throw err;
-                    console.log(`${answer.role} has been successfully update!`);
+                    console.log(`${answer.roles} has been successfully update!`);
                     mainFunction();
                 }
                
             )
         })
 }
-
-SELECT 
-    firstname, 
-    lastname, 
-    email
-FROM
-    employees
-WHERE
-    employeeNumber = 1056;
 
 //========== DELETE ROLES =======================
 function delRoles(){
