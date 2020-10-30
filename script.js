@@ -276,8 +276,9 @@ function addEmpl(){
             }, 
             {
                 name: 'rolesID',
-                type: 'input',
-                message: 'What is the employee`s role?'
+                type: 'list',
+                message: 'What is the new employee`s role?',
+                choices: listRoles
             }
         ]).then(function(answer){
             connection.query(
@@ -289,6 +290,7 @@ function addEmpl(){
                 },
                 function(err, res){
                     if(err) throw err;
+                    console.log( answer + 'successfully added!')
                     mainFunction()
                 }
             )
