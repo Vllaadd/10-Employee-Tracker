@@ -11,7 +11,12 @@ let listEmp;
 
 connection.query("SELECT * FROM departments", function (err, res) {
     if (err) throw err;
-    listDep = res.map(dep => ({ name: dep.department_name, value: dep.id })); 
+    listDep = res.map(dep => (
+        { 
+            name: dep.department_name, 
+            value: dep.id 
+        }
+    )); 
 });
 
 connection.query("SELECT * FROM roles", function (err, res) { 
@@ -149,18 +154,31 @@ function viewDep() {
 //============ ADD ROLES ======================
     function addRoles(){
         inquirer
-            .prompt({
+            .prompt([
+                {
                     name: 'title',
                     type: 'input',
                     message: 'Which role would you like to add?'
-            })
+                },
+                {
+                    name: 'salary',
+                    type: 'input',
+                    message: 'What is the salary of the new role?'
+                },
+                {
+                    name: 'departmentsRole',
+                    type: 'list',
+                    message: 'Which departmnet the new role belongs to?',
+                    choices: listDep
+                }
+            ])
             .then(function(answer){
                 connection.query(
                     'INSERT INTO roles SET ?',
                     {
                         title: answer.title,
                         salary: answer.salary,
-                        departmentsID: answer.departmentsID
+                        departmentsID: answer.departmentsRole
                     },
                     function(err){
                         if(err) throw err;
