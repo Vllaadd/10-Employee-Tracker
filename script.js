@@ -5,6 +5,7 @@ const { title } = require('process');
 const connection = require('./config/connection');
 require('console.table');
 
+// ====== LISTS CREATED ========================
 let listDep;
 let listRoles;
 let listEmp;
