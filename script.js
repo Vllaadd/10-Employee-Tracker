@@ -2,7 +2,8 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql');
 const { title } = require('process');
-const connection = require('./config/connection')
+const connection = require('./config/connection');
+require('console.table');
 
 let listDep;
 let listRoles;
@@ -90,14 +91,13 @@ function mainFunction() {
 function addDep() {
     inquirer
         .prompt({
-            name: 'new_dep',
+            name: 'department_name',
             type: 'input',
             message: 'Which department would you like to add?'
         })
         .then(function (answer) {
             connection.query(
-                'INSERT INTO departments SET ?',
-                { department_name: answer.department_name },
+                'INSERT INTO departments SET ?',  answer,
                 function (err, res) {
                     if (err) throw err;
                     console.log('-----Department added!------');
@@ -113,7 +113,7 @@ function viewDep() {
     connection.query(
         'SELECT DISTINCT department_name FROM departments', function(err, res){
             if (err) throw err;
-            console.log(res);
+            console.table(res);
             mainFunction();
         });
 }
@@ -123,18 +123,17 @@ function viewDep() {
         inquirer
         .prompt(
             {
-                name: 'delete_dep',
+                name: 'department_name',
                 type: 'input',
                 message: 'Which department would you like to delete?'
             }
         )
         .then(function(answer){
             connection.query(
-                'DELETE FROM departments WHERE ?',
-                {department_name: answer.department_name},
+                'DELETE FROM departments WHERE department_name = ?', answer.department_name,
                 function(err, res){
                     if(err) throw err;
-                    console.log(answer.department_name + 'department successfully deleted')
+                    console.log('department successfully deleted')
                 }
             )
         })
@@ -144,7 +143,7 @@ function viewDep() {
     function addRoles(){
         inquirer
             .prompt({
-                    name: 'new_role',
+                    name: 'title',
                     type: 'input',
                     message: 'Which role would you like to add?'
             })
@@ -172,7 +171,7 @@ function viewDep() {
         connection.query(
             'SELECT DISTINCT title FROM roles', function(err, res){
                 if(err) throw err;
-                console.log(res);
+                console.table(res);
                 mainFunction();
             }
         )
@@ -185,13 +184,14 @@ function updateRoles(){
     inquirer 
         .prompt(
             {
-                name: 'update_role',
-                type:'input',
-                message: 'Which role would you like to update?'
+                name: 'employee_role',
+                type:'list',
+                message: "Which employee's role would you like to update?",
+                choices: listEmp
             },{
-                name: 'salary_update',
+                name: 'salary',
                 type: 'input',
-                message: 'What is the new amount?'
+                message: 'What is the employee new role?'
             })
             .then(function(answer){
             connection.query(
@@ -199,7 +199,7 @@ function updateRoles(){
                  `UPDATE ${answer.title} SET salary = ${answer.salary}  WHERE salary = ${roles.salary}`,
                 function(err, res){
                     if(err) throw err;
-                    console.log(`${answer.roles} has been successfully update!`);
+                    console.log(`The update has been successfully update!`);
                     mainFunction();
                 }
                
@@ -273,7 +273,7 @@ function addEmpl(){
      connection.query(
          'SELECT DISTINCT firstName, lastName FROM employees', function(err, res){
          if(err) throw err;
-         console.log(res);
+         console.table(res);
          mainFunction();
      })
  }
