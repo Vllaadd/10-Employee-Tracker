@@ -16,15 +16,22 @@ connection.query("SELECT * FROM departments", function (err, res) {
 
 connection.query("SELECT * FROM roles", function (err, res) { 
     if (err) throw err;
-    listRoles = res.map(role => ({ name: role.title, value: role.id })); 
+    listRoles = res.map(role => (
+        { 
+            name: role.title, 
+            value: role.id 
+        }
+    )); 
 });
 
 connection.query("SELECT * FROM employees", function (err, res) {
     if (err) throw err;
-    listEmp = res.map(emp => ({
-        name: `${emp.firstName}${emp.lastName}`,
-        value: emp.id
-    }));
+    listEmp = res.map(employee => (
+        {
+            name: `${employee.firstName}${employee.lastName}`,
+            value: employee.id
+        }
+    ));
 });
 
 
@@ -182,21 +189,23 @@ function viewDep() {
 //===========UPDATE ROLES =====================
 function updateRoles(){
     inquirer 
-        .prompt(
+        .prompt([
             {
                 name: 'employee',
                 type:'list',
                 message: "Which employee's role would you like to update?",
                 choices: listEmp
             },{
-                name: 'new_role',
+                name: 'role',
                 type: 'list',
                 message: 'What is the employee new role?',
                 choices: listRoles
-            })
+            }
+
+        ])
             .then(function(answer){
             connection.query(
-                `UPDATE employees SET rolesID = ${answer.new_role} WHERE id =${answer.employee}`,
+                `UPDATE employees SET rolesID = ${answer.role} WHERE id =${answer.employee}`,
                 function(err, res){
                     if(err) throw err;
                     console.log(`The update has been successfully update!`);
