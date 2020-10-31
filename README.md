@@ -12,7 +12,7 @@ The main purpose of this application is to allow the owners of their companies t
 * mySQL
 
 # Demo Video 
-    ![](path/to/image.png)
+    ![](path/to/image.gif)
 
 
 # Usage
