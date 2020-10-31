@@ -1,4 +1,4 @@
-//=========== DENEPNDECIES =====================
+//=========== DEPENDECIES =====================
 const inquirer = require('inquirer')
 const mysql = require('mysql');
 const { title } = require('process');
