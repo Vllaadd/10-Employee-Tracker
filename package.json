@@ -1,0 +1,25 @@
+{
+  "name": "10-employee-tracker",
+  "version": "1.0.0",
+  "description": "# Overview The main purpose of this application is to allow the owners of their companies to view and manage the departments, roles and employeese.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vllaadd/10-Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vllaadd/10-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/Vllaadd/10-Employee-Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
