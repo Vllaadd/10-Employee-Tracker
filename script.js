@@ -131,7 +131,7 @@ function viewDep() {
         });
 }
 
-//=========== DELETE DEPARTMENTS =================
+//=========== DELETE DEPARTMENTS =========================
     function delDep(){
         inquirer
         .prompt(
@@ -146,13 +146,14 @@ function viewDep() {
                 'DELETE FROM departments WHERE department_name = ?', answer.department_name,
                 function(err, res){
                     if(err) throw err;
-                    console.log('department successfully deleted')
+                    console.log('department successfully deleted');
+                    mainFunction();
                 }
             )
         })
     }
 
-//============ ADD ROLES ======================
+//============ ADD ROLES ===================================
     function addRoles(){
         inquirer
             .prompt([
@@ -169,7 +170,7 @@ function viewDep() {
                 {
                     name: 'departmentsRole',
                     type: 'list',
-                    message: 'Which departmnet the new role belongs to?',
+                    message: 'Which department the new role belongs to?',
                     choices: listDep
                 }
             ])
@@ -260,7 +261,7 @@ function delRoles(){
 
 
 
-//============= ADD EMPLOYEES =====================
+//============= ADD EMPLOYEES ============================
 function addEmpl(){
     inquirer
         .prompt([
@@ -298,7 +299,7 @@ function addEmpl(){
 }
 
 
-// ============ VIEW EMPLOYEES ===================
+// ============ VIEW EMPLOYEES ============================
  function viewEmpl(){
      connection.query(
          'SELECT DISTINCT firstName, lastName FROM employees', function(err, res){
@@ -309,7 +310,7 @@ function addEmpl(){
  }
 
 
-//============== DELETE EMPLOYEES =================
+//============== DELETE EMPLOYEES ============================
 function delEmpl(){
     inquirer
     .prompt(
