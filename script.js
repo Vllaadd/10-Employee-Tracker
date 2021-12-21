@@ -5,7 +5,7 @@ const { title } = require('process');
 const connection = require('./config/connection');
 require('console.table');
 
-// == LISTS CREATED ======
+//== LISTS CREATED (declared) ======
 let listDep;
 let listRoles;
 let listEmp;
@@ -34,7 +34,7 @@ connection.query("SELECT * FROM employees", function (err, res) {
     if (err) throw err;
     listEmp = res.map(employee => (
         {
-            name: `${employee.firstName}${employee.lastName}`,
+            name: `${employee.firstName} ${employee.lastName}`,
             value: employee.id
         }
     ));

@@ -1,7 +1,7 @@
 # Employee Tracker
 
 # Overview
-The main purpose of this application is to allow the owners of their companies to view and manage the departments, roles and employeese. 
+The main purpose of this application is to allow company owners to view and manipulate the data of the departments, employees and their roles within the departments. 
 
 
 # Technologies used:
