@@ -16,5 +16,5 @@ The main purpose of this application is to allow company owners to view and mani
 
 
 # Usage
-After creating three tables in the database, departments, roles and employees, we connect the created database using npm package. 
+After creating three tables in the database - departments, roles and employees, we connect the created database using npm package. 
 After having the data available, we use inquirer to make interaction with the user available. 
