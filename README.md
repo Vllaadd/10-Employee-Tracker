@@ -6,6 +6,8 @@ The main purpose of this application is to allow company owners to view and mani
 
 # Technologies used:
 
+* HTML
+* CSS
 * JavaScript
 * Node.js
 * Inquirer 
